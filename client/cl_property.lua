@@ -31,8 +31,7 @@ function Property:new(propertyData)
     propertyData.furnitures = {}
     self.propertyData = propertyData
 
-    local Player = QBCore.Functions.GetPlayerData()
-    local citizenid = Player.citizenid
+    local citizenid = Framework.getPlayerIdentifier()
 
     self.owner = propertyData.owner == citizenid
     self.has_access = lib.table.contains(self.propertyData.has_access, citizenid)
@@ -196,7 +195,7 @@ function Property:UnregisterGarageZone()
 
     TriggerEvent("qb-garages:client:removeHouseGarage", self.property_id)
 
-    self.garageZone:remove()
+    self.garageZone:destroy()
     self.garageZone = nil
 end
 
@@ -633,9 +632,7 @@ end
 function Property:UpdateOwner(newOwner)
     self.propertyData.owner = newOwner
 
-    local Player = QBCore.Functions.GetPlayerData()
-    local citizenid = Player.citizenid
-
+    local citizenid = Framework.getPlayerIdentifier()
     self.owner = newOwner == citizenid
 
     self:UnregisterGarageZone()
@@ -663,8 +660,7 @@ function Property:UpdateDoor(newDoor, newStreet, newRegion)
 end
 
 function Property:UpdateHas_access(newHas_access)
-    local Player = QBCore.Functions.GetPlayerData()
-    local citizenid = Player.citizenid
+    local citizenid = Framework.getPlayerIdentifier()
     self.propertyData.has_access = newHas_access
     self.has_access = lib.table.contains(newHas_access, citizenid)
 

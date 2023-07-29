@@ -240,8 +240,3 @@ function GetPlayer(src)
     if not Player then return end
     return Player
 end
-
--- if PSCore then
---     PSCore.Functions.CheckForUpdates()
---     PSCore.Functions.CheckResourceName()
--- end

@@ -1,5 +1,3 @@
-QBCore = exports['qb-core']:GetCoreObject()
-
 local function createProperty(property)
 	PropertiesTable[property.property_id] = Property:new(property)
 end
@@ -31,7 +29,6 @@ function InitialiseProperties()
 
     Debug("Initialised properties")
 end
-AddEventHandler("QBCore:Client:OnPlayerLoaded", InitialiseProperties)
 RegisterNetEvent('ps-housing:client:initialiseProperties', InitialiseProperties)
 
 AddEventHandler("onResourceStart", function(resourceName) -- Used for when the resource is restarted while in game
