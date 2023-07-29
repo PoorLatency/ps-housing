@@ -26,6 +26,13 @@ if IsDuplicityVersion() then
 		return player.citizenid
 	end
 
+	function Framework.GetPlayerNameFromIdentifier(identifier)
+		local player = QBCore.Functions.GetOfflinePlayerByCitizenId(identifier)
+		if not player then return end
+
+		return ('%s %s'):format(player.charinfo.firstname, player.charinfo.lastname)
+	end
+
 	function Framework.getName(source)
 		local player = Framework.getPlayerData(source)
 		if not player then return end

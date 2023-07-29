@@ -27,6 +27,13 @@ if IsDuplicityVersion() then
 		return player
 	end
 
+	function Framework.getPlayerByIdentifier(identifier)
+		local player = GetPlayerFromIdentifier(source)
+		if not player then return end
+		
+		return player
+	end
+
 	function Framework.getIdentifier(source)
 		local player = Framework.getPlayerData(source)
 		if not player then return end
@@ -34,11 +41,24 @@ if IsDuplicityVersion() then
 		return player.identifier
 	end
 
+	function Framework.GetPlayerNameFromIdentifier(identifier)
+		local data = MySQL.single.await("SELECT firstname, lastname FROM users WHERE identifier = ?", { identifier })
+		return ("%s %s"):format(data.firstname, data.lastname)
+	end
+	
+
 	function Framework.getName(source)
 		local player = Framework.getPlayerData(source)
 		if not player then return end
 
 		return player.getName()
+	end
+
+	function Framework.getJob(source)
+		local player = Framework.getPlayerData(source)
+		if not player then return end
+
+		return player.job
 	end
 
 	function Framework.getBalance(source)
@@ -65,6 +85,20 @@ if IsDuplicityVersion() then
 		if not player then return end
 
 		return player.removeMoney(amount)
+	end
+
+	function Framework.setMeta(source, prop, data)
+		local player = Framework.getPlayerData(source)
+		if not player then return end
+
+		player.setMeta(player.source, prop, data)
+	end
+
+	function Framework.getMeta(source, prop)
+		local player = Framework.getPlayerData(source)
+		if not player then return end
+
+		player.getMeta(player.source, prop)
 	end
 else
 	function Framework.getPlayerData()
